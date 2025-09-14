@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>All Experiments</h1>
+  <p><a href="{% url 'experiment-create' %}">+ Add Experiment</a></p>
+  <ul>
+    {% for experiment in experiment_list %}
+      <li>
+        <a href="{% url 'experiment-detail' experiment.id %}">
+          {{ experiment.title }} — {{ experiment.category }}
+        </a>
+      </li>
+    {% empty %}
+      <li>No experiments yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

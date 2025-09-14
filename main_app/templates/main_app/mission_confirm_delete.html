@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Delete Mission?</h1>
+  <p>Are you sure you want to delete <strong>{{ object.name }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <a href="{% url 'mission-detail' object.id %}">Cancel</a>
+    <button type="submit">Yes, delete</button>
+  </form>
+{% endblock %}

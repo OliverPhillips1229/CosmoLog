@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>All Missions</h1>
+  <p><a href="{% url 'mission-create' %}">+ Add Mission</a></p>
+  <ul>
+    {% for mission in mission_list %}
+      <li>
+        <a href="{% url 'mission-detail' mission.id %}">
+          {{ mission.name }} — {{ mission.agency }} ({{ mission.launch_date }})
+        </a>
+      </li>
+    {% empty %}
+      <li>No missions yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

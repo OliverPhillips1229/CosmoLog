@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>{{ experiment.title }}</h1>
+  <p><strong>Category:</strong> {{ experiment.category }}</p>
+  <p><strong>Success:</strong> {{ experiment.success_status|yesno:"Yes,No" }}</p>
+  <p><strong>Summary:</strong> {{ experiment.result_summary|default:"—" }}</p>
+
+  <h2>Missions Using This Experiment</h2>
+  {% with missions=experiment.mission_set.all %}
+    {% if missions %}
+      <ul>
+        {% for m in missions %}
+          <li><a href="{% url 'mission-detail' m.id %}">{{ m.name }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Not used in any missions yet.</p>
+    {% endif %}
+  {% endwith %}
+
+  <p>
+    <a href="{% url 'experiment-update' experiment.id %}">Edit</a> |
+    <a href="{% url 'experiment-delete' experiment.id %}">Delete</a>
+  </p>
+{% endblock %}

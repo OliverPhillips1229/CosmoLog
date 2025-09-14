@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Space Missions</title>
-</head>
-<body>
-  <h1>🚀 Welcome to Space Missions App</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+  <h1>🚀 Space Missions</h1>
+  <p>Track missions and the experiments they carried.</p>
+  <p><a href="{% url 'mission-index' %}">View Missions</a> | <a href="{% url 'experiment-index' %}">View Experiments</a></p>
+{% endblock %}

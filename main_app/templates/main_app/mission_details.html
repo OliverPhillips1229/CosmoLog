@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>{{ mission.name }}</h1>
+  <p><strong>Agency:</strong> {{ mission.agency }}</p>
+  <p><strong>Launch Date:</strong> {{ mission.launch_date }}</p>
+  <p><strong>Crewed:</strong> {{ mission.crewed|yesno:"Yes,No" }}</p>
+  <p><strong>Outcome:</strong> {{ mission.outcome|default:"—" }}</p>
+
+  <h2>Experiments on this Mission</h2>
+  {% if mission.experiments.count %}
+    <ul>
+      {% for exp in mission.experiments.all %}
+        <li>
+          <a href="{% url 'experiment-detail' exp.id %}">
+            {{ exp.title }} ({{ exp.category }}) — {% if exp.success_status %}Success{% else %}Pending/Fail{% endif %}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No experiments linked yet.</p>
+  {% endif %}
+
+  <p>
+    <a href="{% url 'mission-update' mission.id %}">Edit</a> |
+    <a href="{% url 'mission-delete' mission.id %}">Delete</a>
+  </p>
+{% endblock %}
