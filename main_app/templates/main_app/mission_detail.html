@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Mission Details</h2>
+  <ul>
+    <li><strong>Name:</strong> {{ object.name }}</li>
+    <li><strong>Agency:</strong> {{ object.agency }}</li>
+    <li><strong>Launch Date:</strong> {{ object.launch_date }}</li>
+    <li><strong>Outcome:</strong> {{ object.outcome }}</li>
+    <li><strong>Crewed:</strong> {{ object.crewed|yesno:"Yes,No" }}</li>
+    <li><strong>User:</strong> {{ object.user.username }}</li>
+  </ul>
+  <h3>Experiments</h3>
+  <ul>
+    {% for experiment in object.experiments.all %}
+      <li>{{ experiment.title }} ({{ experiment.category }})</li>
+    {% empty %}
+      <li>No experiments for this mission.</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'mission-experiment-create' object.pk %}" class="btn">Create New Experiment</a>
+  <a href="{% url 'mission-experiment-add' object.pk %}" class="btn">Add Existing Experiment</a>
+  <a href="{% url 'mission-update' object.pk %}" class="btn">Edit Mission</a>
+  <a href="{% url 'mission-delete' object.pk %}" class="btn">Delete Mission</a>
+  <a href="{% url 'mission-index' %}" class="btn">Back to Missions</a>
+{% endblock %}

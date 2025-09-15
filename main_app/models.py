@@ -1,11 +1,13 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 class Experiment(models.Model):
     title = models.CharField(max_length=120)
     category = models.CharField(max_length=80)  # Biology, Physics, Materials
     result_summary = models.TextField(blank=True)
     success_status = models.BooleanField(default=False)
+    mission = models.ForeignKey('Mission', on_delete=models.CASCADE, related_name='mission_experiments', null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -20,8 +22,8 @@ class Mission(models.Model):
     launch_date = models.DateField()
     outcome = models.CharField(max_length=80, blank=True)  # Success, Partial, Failure
     crewed = models.BooleanField(default=False)
-    # M:M with Experiment
-    experiments = models.ManyToManyField(Experiment, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='missions', null=True, blank=True)
+    experiments = models.ManyToManyField(Experiment, blank=True, related_name='missions')
 
     def __str__(self):
         return self.name

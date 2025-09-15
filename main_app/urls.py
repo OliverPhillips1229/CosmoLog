@@ -6,12 +6,17 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
 
+    # User registration
+    path('signup/', views.signup, name='signup'),
+
     # Missions (CBVs)
     path('missions/', views.MissionList.as_view(), name='mission-index'),
     path('missions/create/', views.MissionCreate.as_view(), name='mission-create'),
     path('missions/<int:pk>/', views.MissionDetail.as_view(), name='mission-detail'),
     path('missions/<int:pk>/update/', views.MissionUpdate.as_view(), name='mission-update'),
     path('missions/<int:pk>/delete/', views.MissionDelete.as_view(), name='mission-delete'),
+    path('missions/<int:mission_id>/experiments/create/', views.ExperimentCreate.as_view(), name='mission-experiment-create'),
+    path('missions/<int:mission_id>/experiments/add/', views.add_existing_experiment, name='mission-experiment-add'),
 
     # Experiments (CBVs)
     path('experiments/', views.ExperimentList.as_view(), name='experiment-index'),

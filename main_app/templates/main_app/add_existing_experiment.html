@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Add Existing Experiment to Mission: {{ mission.name }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Add Experiment</button>
+  </form>
+  <a href="{% url 'mission-detail' mission.pk %}" class="btn">Back to Mission</a>
+{% endblock %}
