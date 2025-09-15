@@ -17,7 +17,7 @@
       <a href="{% url 'about' %}">About</a>
         {% if user.is_authenticated %}
           | <span>Welcome, {{ user.username }}!</span>
-          | <a href="/accounts/logout/">Logout</a>
+          | <a href="/logout/">Logout</a>
         {% else %}
           | <a href="/accounts/login/">Login</a>
           | <a href="{% url 'signup' %}">Sign Up</a>

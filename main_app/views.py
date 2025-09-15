@@ -1,3 +1,10 @@
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def logout_view(request):
+    from django.shortcuts import render
+    logout(request)
+    return render(request, 'registration/logged_out.html')
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView

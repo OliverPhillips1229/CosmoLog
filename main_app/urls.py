@@ -9,6 +9,9 @@ urlpatterns = [
     # User registration
     path('signup/', views.signup, name='signup'),
 
+    # Custom logout (GET)
+    path('logout/', views.logout_view, name='logout'),
+
     # Missions (CBVs)
     path('missions/', views.MissionList.as_view(), name='mission-index'),
     path('missions/create/', views.MissionCreate.as_view(), name='mission-create'),

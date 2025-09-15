@@ -1,3 +1,5 @@
+# Redirect to home after login
+LOGIN_REDIRECT_URL = '/'
 """
 Django settings for space_missions project.
 
