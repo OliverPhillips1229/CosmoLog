@@ -1,3 +1,52 @@
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login as auth_login
+
+# --- Custom Login View ---
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            auth_login(request, user)
+            return redirect('home')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'registration/login.html', {'form': form})
+from django.contrib import messages
+from .forms import RoverPhotoFilter
+from .services import nasa
+
+def mars_manifest(request, rover):
+    try:
+        manifest = nasa.get_manifest(rover)
+    except Exception as e:
+        messages.error(request, f"NASA API error: {e}")
+        manifest = {}
+    return render(request, "mars/manifest.html", {"manifest": manifest, "rover": rover})
+
+def mars_gallery(request):
+    import time, random
+    from django.core.cache import cache
+    rover = "curiosity"
+    cache_key = f"mars_gallery_random_{rover}_{int(time.time() // (60*60*12))}"
+    photos = cache.get(cache_key)
+    if photos is None:
+        # Get manifest and pick random sols with photos
+        try:
+            manifest = nasa.get_manifest(rover)
+            sols_with_photos = [p['sol'] for p in manifest.get('photos', []) if p['total_photos'] > 0]
+            random_sols = random.sample(sols_with_photos, min(5, len(sols_with_photos)))
+            photos = []
+            for sol in random_sols:
+                sol_photos = nasa.get_photos(rover, sol=sol)
+                if sol_photos:
+                    photos.extend(random.sample(sol_photos, min(2, len(sol_photos))))
+            photos = random.sample(photos, min(10, len(photos)))
+        except Exception as e:
+            photos = []
+        cache.set(cache_key, photos, 60*60*12)  # cache for 12 hours
+    meta = {"count": len(photos)}
+    return render(request, "mars/gallery.html", {"photos": photos, "meta": meta})
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
@@ -113,7 +162,19 @@ def add_existing_experiment(request, mission_id):
 
 # --- Simple pages ---
 def home(request):
-    return render(request, 'home.html')
+    from django.core.cache import cache
+    from main_app.services import nasa
+    rover = "curiosity"
+    sol = 1000
+    cache_key = f"nasa_photos_{rover}_{sol}"
+    photos = cache.get(cache_key)
+    if photos is None:
+        try:
+            photos = nasa.get_photos(rover, sol=sol)
+        except Exception as e:
+            photos = []
+        cache.set(cache_key, photos, 60 * 10)  # cache for 10 minutes
+    return render(request, 'home.html', {"mars_photos": photos})
 
 def about(request):
     return render(request, 'about.html')

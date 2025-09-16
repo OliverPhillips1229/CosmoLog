@@ -1,3 +1,4 @@
+
 from django.urls import path
 from . import views
 
@@ -6,8 +7,10 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
 
-    # User registration
+
+    # User registration & login
     path('signup/', views.signup, name='signup'),
+    path('login/', views.login_view, name='login'),
 
     # Custom logout (GET)
     path('logout/', views.logout_view, name='logout'),
@@ -27,4 +30,8 @@ urlpatterns = [
     path('experiments/<int:pk>/', views.ExperimentDetail.as_view(), name='experiment-detail'),
     path('experiments/<int:pk>/update/', views.ExperimentUpdate.as_view(), name='experiment-update'),
     path('experiments/<int:pk>/delete/', views.ExperimentDelete.as_view(), name='experiment-delete'),
+
+    # Mars API
+    path('mars/', views.mars_gallery, name='mars-gallery'),
+    path('mars/<str:rover>/manifest/', views.mars_manifest, name='mars-manifest'),
 ]

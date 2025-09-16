@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ rover|title }} Mission Manifest</h1>
+
+{% if manifest.name %}
+  <ul>
+    <li><strong>Name:</strong> {{ manifest.name }}</li>
+    <li><strong>Landing date:</strong> {{ manifest.landing_date }}</li>
+    <li><strong>Launch date:</strong> {{ manifest.launch_date }}</li>
+    <li><strong>Status:</strong> {{ manifest.status }}</li>
+    <li><strong>Max sol:</strong> {{ manifest.max_sol }}</li>
+    <li><strong>Max date:</strong> {{ manifest.max_date }}</li>
+    <li><strong>Total photos:</strong> {{ manifest.total_photos }}</li>
+  </ul>
+
+  <h2>By Sol</h2>
+  <table border="1" cellpadding="6">
+    <thead><tr><th>Sol</th><th>Total Photos</th><th>Cameras</th></tr></thead>
+    <tbody>
+      {% for s in manifest.photos|slice:":25" %}
+      <tr>
+        <td>{{ s.sol }}</td>
+        <td>{{ s.total_photos }}</td>
+        <td>{{ s.cameras|join:", " }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p style="font-size:.85rem;">(showing first 25 sols for brevity)</p>
+{% else %}
+  <p>Manifest not available.</p>
+{% endif %}
+{% endblock %}

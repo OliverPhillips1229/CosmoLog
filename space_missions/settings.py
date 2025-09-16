@@ -1,3 +1,7 @@
+import os
+
+# NASA API Key from environment
+NASA_API_KEY = os.getenv("NASA_API_KEY", "DEMO_KEY")  # fallback works but is rate-limited
 # Redirect to home after login
 LOGIN_REDIRECT_URL = '/'
 """

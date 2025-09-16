@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Mars Rover Photos</h1>
+
+<p>Showing {{ meta.count }} random Mars photos (changes every 12 hours)</p>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
+  {% for p in photos %}
+    <figure style="border:1px solid #ccc;padding:8px;">
+      <img src="{{ p.img_src }}" alt="Mars photo" style="max-width:100%;height:auto;">
+      <figcaption style="font-size:.9rem;">
+        <strong>Rover:</strong> {{ p.rover.name }} |
+        <strong>Camera:</strong> {{ p.camera.full_name }}<br>
+        <strong>Sol:</strong> {{ p.sol }} |
+        <strong>Date:</strong> {{ p.earth_date }}
+      </figcaption>
+    </figure>
+  {% empty %}
+    <p>No photos found for this sol.</p>
+  {% endfor %}
+</div>
+{% endblock %}
