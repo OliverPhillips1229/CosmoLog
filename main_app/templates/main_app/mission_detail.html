@@ -12,7 +12,13 @@
   <h3>Experiments</h3>
   <ul>
     {% for experiment in object.experiments.all %}
-      <li>{{ experiment.title }} ({{ experiment.category }})</li>
+      <li>{{ experiment.title }} ({{ experiment.category }}) — 
+        {% if experiment.success_status %}
+          <span style="color:green;font-weight:bold;">Success</span>
+        {% else %}
+          <span style="color:#b00;font-weight:bold;">Fail</span>
+        {% endif %}
+      </li>
     {% empty %}
       <li>No experiments for this mission.</li>
     {% endfor %}
