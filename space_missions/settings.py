@@ -1,4 +1,8 @@
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # NASA API Key from environment
 NASA_API_KEY = os.getenv("NASA_API_KEY", "DEMO_KEY")  # fallback works but is rate-limited

@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
+<div style="background:#f7f7fa;border-radius:8px;padding:1rem 1.5rem;margin-bottom:2rem;max-width:600px;">
+  <h2 style="margin-top:0;">Mars Rover Manifest Terms</h2>
+  <ul style="font-size:1rem;line-height:1.6;">
+    <li><strong>Sol:</strong> A Martian day (about 24 hours, 39 minutes).</li>
+  </ul>
+
+  <h3 style="margin-bottom:0.5rem;">Camera Abbreviations</h3>
+  <ul style="font-size:1rem;line-height:1.6;">
+    <li><strong>CHEMCAM</strong>: Chemistry and Camera Complex (analyzes rock composition)</li>
+    <li><strong>FHAZ</strong>: Front Hazard Avoidance Camera</li>
+    <li><strong>RHAZ</strong>: Rear Hazard Avoidance Camera</li>
+    <li><strong>MARDI</strong>: Mars Descent Imager</li>
+    <li><strong>MAHLI</strong>: Mars Hand Lens Imager (close-up images)</li>
+    <li><strong>MAST</strong>: Mast Camera (panoramic and stereoscopic images)</li>
+    <li><strong>NAVCAM</strong>: Navigation Camera</li>
+  </ul>
+</div>
 <h1>{{ rover|title }} Mission Manifest</h1>
 
 {% if manifest.name %}
