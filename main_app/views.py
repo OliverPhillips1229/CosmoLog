@@ -17,7 +17,7 @@ from django import forms
 # --- Mission CBVs ---
 class MissionList(ListView):
     model = Mission
-    ordering = ['-launch_date']  # newest first
+    ordering = ['launch_date']  # earliest first
 
 class MissionDetail(DetailView):
     model = Mission
@@ -105,8 +105,7 @@ def add_existing_experiment(request, mission_id):
         form = AddExperimentForm(request.POST)
         if form.is_valid():
             experiment = form.cleaned_data['experiment']
-            experiment.mission = mission
-            experiment.save()
+            mission.experiments.add(experiment)
             return redirect('mission-detail', pk=mission_id)
     else:
         form = AddExperimentForm()
