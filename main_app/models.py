@@ -8,6 +8,7 @@ class Experiment(models.Model):
     result_summary = models.TextField(blank=True)
     success_status = models.BooleanField(default=False)
     mission = models.ForeignKey('Mission', on_delete=models.CASCADE, related_name='mission_experiments', null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='experiments', null=True, blank=True)
 
     def __str__(self):
         return self.title

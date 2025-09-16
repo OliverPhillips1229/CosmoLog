@@ -4,22 +4,29 @@
   <p><strong>Category:</strong> {{ experiment.category }}</p>
   <p><strong>Success:</strong> {{ experiment.success_status|yesno:"Yes,No" }}</p>
   <p><strong>Summary:</strong> {{ experiment.result_summary|default:"—" }}</p>
+  <p><strong>Owner:</strong>
+    {% if experiment.mission and experiment.mission.user %}
+      {{ experiment.mission.user.username }}
+    {% else %}
+      &mdash;
+    {% endif %}
+  </p>
 
   <h2>Missions Using This Experiment</h2>
-  {% with missions=experiment.mission_set.all %}
-    {% if missions %}
-      <ul>
-        {% for m in missions %}
-          <li><a href="{% url 'mission-detail' m.id %}">{{ m.name }}</a></li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>Not used in any missions yet.</p>
-    {% endif %}
-  {% endwith %}
+  {% if experiment.missions.all %}
+    <ul>
+      {% for m in experiment.missions.all %}
+        <li><a href="{% url 'mission-detail' m.id %}">{{ m.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Not used in any missions yet.</p>
+  {% endif %}
 
-  <p>
-    <a href="{% url 'experiment-update' experiment.id %}">Edit</a> |
-    <a href="{% url 'experiment-delete' experiment.id %}">Delete</a>
-  </p>
+  {% if experiment.mission and experiment.mission.user == user %}
+    <p>
+      <a href="{% url 'experiment-update' experiment.id %}">Edit</a> |
+      <a href="{% url 'experiment-delete' experiment.id %}">Delete</a>
+    </p>
+  {% endif %}
 {% endblock %}

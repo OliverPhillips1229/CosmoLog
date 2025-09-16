@@ -26,13 +26,29 @@ class MissionCreate(CreateView):
     model = Mission
     fields = ['name', 'agency', 'launch_date', 'outcome', 'crewed', 'experiments']
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 class MissionUpdate(UpdateView):
     model = Mission
     fields = ['name', 'agency', 'launch_date', 'outcome', 'crewed', 'experiments']
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.user != request.user:
+            return redirect('mission-detail', pk=obj.pk)
+        return super().dispatch(request, *args, **kwargs)
+
 class MissionDelete(DeleteView):
     model = Mission
     success_url = reverse_lazy('mission-index')
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.user != request.user:
+            return redirect('mission-detail', pk=obj.pk)
+        return super().dispatch(request, *args, **kwargs)
 
 # --- Experiment CBVs ---
 class ExperimentList(ListView):
@@ -50,14 +66,29 @@ class ExperimentCreate(CreateView):
         mission_id = self.kwargs.get('mission_id')
         if mission_id:
             form.instance.mission_id = mission_id
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
 class ExperimentUpdate(UpdateView):
     model = Experiment
     fields = ['title', 'category', 'result_summary', 'success_status']
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        # Only allow edit if user owns the experiment
+        if obj.user != request.user:
+            return redirect('experiment-detail', pk=obj.pk)
+        return super().dispatch(request, *args, **kwargs)
+
 class ExperimentDelete(DeleteView):
     model = Experiment
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        # Only allow delete if user owns the experiment
+        if obj.user != request.user:
+            return redirect('experiment-detail', pk=obj.pk)
+        return super().dispatch(request, *args, **kwargs)
     success_url = reverse_lazy('experiment-index')
 
 # --- Add Existing Experiment to Mission ---
