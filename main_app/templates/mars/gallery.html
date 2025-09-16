@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h1>Mars Rover Photos</h1>
+<h1>Mars Photos</h1>
 
 <p>Showing {{ meta.count }} random Mars photos (changes every 12 hours)</p>
 
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:900px;margin:0 auto;">
   {% for p in photos %}
-    <figure style="border:1px solid #ccc;padding:8px;">
-      <img src="{{ p.img_src }}" alt="Mars photo" style="max-width:100%;height:auto;">
-      <figcaption style="font-size:.9rem;">
-        <strong>Rover:</strong> {{ p.rover.name }} |
-        <strong>Camera:</strong> {{ p.camera.full_name }}<br>
-        <strong>Sol:</strong> {{ p.sol }} |
-        <strong>Date:</strong> {{ p.earth_date }}
+    <figure style="border:1px solid #ccc;padding:12px;background:#fff;border-radius:8px;">
+      {% if p.img_src %}
+        <img src="{{ p.img_src }}" alt="Mars photo" style="width:100%;height:320px;object-fit:cover;border-radius:6px;">
+      {% else %}
+        <img src="https://mars.nasa.gov/system/news_items/main_images/9442_PIA25681-FigureA-web.jpg" alt="Mars photo" style="width:100%;height:320px;object-fit:cover;border-radius:6px;">
+      {% endif %}
+      <figcaption style="font-size:1rem;margin-top:8px;">
+  <strong>Description:</strong> {{ p.description|default:'No description available' }}
       </figcaption>
     </figure>
   {% empty %}

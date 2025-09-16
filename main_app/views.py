@@ -25,27 +25,9 @@ def mars_manifest(request, rover):
     return render(request, "mars/manifest.html", {"manifest": manifest, "rover": rover})
 
 def mars_gallery(request):
-    import time, random
-    from django.core.cache import cache
-    rover = "curiosity"
-    cache_key = f"mars_gallery_random_{rover}_{int(time.time() // (60*60*12))}"
-    photos = cache.get(cache_key)
-    if photos is None:
-        # Get manifest and pick random sols with photos
-        try:
-            manifest = nasa.get_manifest(rover)
-            sols_with_photos = [p['sol'] for p in manifest.get('photos', []) if p['total_photos'] > 0]
-            random_sols = random.sample(sols_with_photos, min(5, len(sols_with_photos)))
-            photos = []
-            for sol in random_sols:
-                sol_photos = nasa.get_photos(rover, sol=sol)
-                if sol_photos:
-                    photos.extend(random.sample(sol_photos, min(2, len(sol_photos))))
-            photos = random.sample(photos, min(10, len(photos)))
-        except Exception as e:
-            photos = []
-        cache.set(cache_key, photos, 60*60*12)  # cache for 12 hours
-    meta = {"count": len(photos)}
+    from main_app.services.nasa_images import get_mars_images
+    photos = get_mars_images(count=24)
+    meta = {"count": 24, "interval": 4}
     return render(request, "mars/gallery.html", {"photos": photos, "meta": meta})
 from django.contrib.auth import logout
 from django.shortcuts import redirect
