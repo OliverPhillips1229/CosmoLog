@@ -1,6 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
   <h1>🚀 Space Missions</h1>
-  <p>Track missions and the experiments they carried.</p>
-  <p><a href="{% url 'mission-index' %}">View Missions</a> | <a href="{% url 'experiment-index' %}">View Experiments</a></p>
+  <h2>Welcome to CosmoLog!</h2>
+  <p>
+    Explore the universe of space missions and scientific experiments beyond Earth. Discover the stories, data, and achievements of humanity's journey into the cosmos—from historic launches to cutting-edge research aboard spacecraft and space stations.
+  </p>
+  <div style="margin: 2.5em 0 2em 0;">
+    <a href="{% url 'mission-index' %}" class="btn">View Missions</a>
+    <a href="{% url 'experiment-index' %}" class="btn">View Experiments</a>
+  </div>
+  <section class="card-list">
+    <h3>Featured Missions</h3>
+    <ul>
+      <li><strong>Apollo 11</strong> — First humans on the Moon</li>
+      <li><strong>Voyager 1</strong> — Exploring interstellar space</li>
+      <li><strong>Curiosity Rover</strong> — Unveiling Mars' secrets</li>
+      <li><strong>James Webb Space Telescope</strong> — Peering into the early universe</li>
+    </ul>
+  </section>
+  <section class="card-list">
+    <h3>What You Can Do</h3>
+    <ul>
+      <li>Browse and learn about historic and future space missions</li>
+      <li>Explore scientific experiments carried out in space</li>
+      <li>Track mission details, experiment results, and more</li>
+      <li>Enjoy interactive Mars galleries and manifests</li>
+    </ul>
+  </section>
 {% endblock %}

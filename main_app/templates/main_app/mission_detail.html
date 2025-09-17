@@ -23,11 +23,13 @@
       <li>No experiments for this mission.</li>
     {% endfor %}
   </ul>
-  <a href="{% url 'mission-experiment-create' object.pk %}" class="btn">Create New Experiment</a>
-  <a href="{% url 'mission-experiment-add' object.pk %}" class="btn">Add Existing Experiment</a>
-  {% if object.user == user %}
-    <a href="{% url 'mission-update' object.pk %}" class="btn">Edit Mission</a>
-    <a href="{% url 'mission-delete' object.pk %}" class="btn">Delete Mission</a>
-  {% endif %}
-  <a href="{% url 'mission-index' %}" class="btn">Back to Missions</a>
+  <div class="button-group">
+    <a href="{% url 'mission-experiment-create' object.pk %}" class="btn">Create New Experiment</a>
+    <a href="{% url 'mission-experiment-add' object.pk %}" class="btn">Add Existing Experiment</a>
+    {% if object.user == user %}
+      <a href="{% url 'mission-update' object.pk %}" class="btn">Edit Mission</a>
+      <a href="{% url 'mission-delete' object.pk %}" class="btn">Delete Mission</a>
+    {% endif %}
+    <a href="{% url 'mission-index' %}" class="btn">Back to Missions</a>
+  </div>
 {% endblock %}

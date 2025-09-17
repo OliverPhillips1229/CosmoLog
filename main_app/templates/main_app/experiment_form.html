@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1>{% if object %}Edit Experiment{% else %}Add Experiment{% endif %}</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-  </form>
+  <div class="card-list" style="max-width: 540px; margin: 0 auto;">
+    <h1 style="margin-bottom: 0.5em;">{% if object %}Edit Experiment{% else %}Add Experiment{% endif %}</h1>
+    <form method="post" autocomplete="off">
+      {% csrf_token %}
+      {% for field in form %}
+        <div style="margin-bottom: 1.3em;">
+          <label for="{{ field.id_for_label }}" style="font-weight:600; color:#00fff7; font-size:1.15em; display:inline-block; min-width:120px;">{{ field.label }}:</label>
+          {{ field }}
+          {% if field.help_text %}<small style="color:#aaa;">{{ field.help_text }}</small>{% endif %}
+          {% for error in field.errors %}<div style="color:#ff6f61; font-size:0.98em;">{{ error }}</div>{% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn" style="width:180px; margin-top:1.5em;">Save</button>
+    </form>
+  </div>
 {% endblock %}

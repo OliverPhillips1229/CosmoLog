@@ -1,57 +1,329 @@
+/* NASA-style accent bar under header */
+.header-accent {
+	width: 100%;
+	height: 4px;
+	background: linear-gradient(90deg, #00fff7 0%, #0077ff 100%);
+	box-shadow: 0 2px 8px rgba(0,255,247,0.12);
+	margin-bottom: 0;
+}
+
+/* Card style for lists */
+.card-list {
+	background: rgba(10,35,66,0.92);
+	border-radius: 12px;
+	box-shadow: 0 2px 12px rgba(0,255,247,0.08);
+	padding: 24px 28px;
+	margin-bottom: 32px;
+	border: 1px solid #0077ff;
+}
+.card-list ul {
+	margin: 0;
+	padding-left: 18px;
+}
+.card-list li {
+	margin-bottom: 12px;
+	font-size: 1.12em;
+}
+
+/* Subtle animated stars background */
+body::before {
+	content: '';
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 0;
+	pointer-events: none;
+	background: url('https://www.transparenttextures.com/patterns/stardust.png');
+	opacity: 0.18;
+	animation: stars-move 60s linear infinite;
+}
+@keyframes stars-move {
+	0% { background-position: 0 0; }
+	100% { background-position: 1000px 1000px; }
+}
+
+@media (max-width: 700px) {
+	.card-list {
+		padding: 12px 8px;
+	}
+	h1 {
+		font-size: 2em;
+	}
+	h2 {
+		font-size: 1.3em;
+	}
+}
+/* Manifest dictionary section readability */
+.manifest-dictionary {
+	background: #181c2b;
+	color: #e0e6f7;
+	border-radius: 12px;
+	box-shadow: 0 2px 12px #0ff2fa22;
+	padding: 2rem 2.5rem;
+	margin-bottom: 2rem;
+	max-width: 700px;
+}
+.manifest-dictionary h2, .manifest-dictionary h3 {
+	color: #3af2ff;
+	text-shadow: 0 0 8px #0ff2fa88;
+	font-weight: 700;
+}
+.manifest-dictionary ul {
+	font-size: 1.18rem;
+	line-height: 1.8;
+	color: #e0e6f7;
+}
+.manifest-dictionary li {
+	margin-bottom: 0.7em;
+	color: #e0e6f7;
+}
+.manifest-dictionary li strong {
+	color: #3af2ff;
+	font-weight: 700;
+}
+
 body {
-	font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-	background-color: #f8fafc;
-	color: #222;
+	font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
+	background: #10131a;
+	color: #e0e6f7;
 	margin: 0;
 	padding: 0;
+	letter-spacing: 0.03em;
 }
 
 header, nav, footer {
-	background: #22223b;
+	background: linear-gradient(90deg, #23243a 0%, #1a1d2b 100%);
 	color: #fff;
-	padding: 1rem 2rem;
+	padding: 1.2rem 2rem;
+	border-bottom: 2px solid #3af2ff;
+	box-shadow: 0 2px 8px #0ff2fa22;
 }
 
 main {
-	max-width: 800px;
+	max-width: 900px;
 	margin: 2rem auto;
 	padding: 2rem;
-	background: #fff;
-	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(34,34,59,0.08);
+	background: #181c2b;
+	border-radius: 12px;
+	box-shadow: 0 4px 24px #0ff2fa22;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	color: #22223b;
+	color: #3af2ff;
 	margin-top: 0;
+	text-shadow: 0 0 8px #0ff2fa88;
+	font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
 }
 
 a {
-	color: #3a86ff;
-	text-decoration: none;
-	transition: color 0.2s;
-}
-a:hover {
-	color: #00509e;
+	color: #3af2ff;
 	text-decoration: underline;
+	transition: color 0.2s, text-shadow 0.2s;
+	outline: none;
+}
+a:hover, a:focus {
+	color: #fff;
+	text-shadow: 0 0 8px #3af2ff;
+}
+
+
+button, .btn {
+	background: linear-gradient(90deg, #3af2ff 0%, #00509e 100%);
+	color: #181c2b;
+	border: none;
+	border-radius: 6px;
+	padding: 0.8rem 1.6rem;
+	margin: 0.5rem 0.5rem 0.5rem 0;
+	cursor: pointer;
+	font-size: 1.15rem;
+	font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
+	font-weight: bold;
+	box-shadow: 0 2px 8px #0ff2fa44;
+	transition: background 0.2s, color 0.2s;
+	outline: none;
+	letter-spacing: 0.04em;
+}
+
+/* Remove background, border, and shadow for nav Logout button */
+nav form button[type="submit"] {
+	background: none !important;
+	color: #3af2ff !important;
+	border: none !important;
+	box-shadow: none !important;
+	font-weight: normal;
+	font-size: 1.15rem;
+	padding: 0;
+	margin: 0;
+	text-decoration: underline;
+	font-family: inherit;
+}
+nav form button[type="submit"]:hover,
+nav form button[type="submit"]:focus {
+	color: #fff !important;
+	text-shadow: 0 0 8px #3af2ff;
+	background: none !important;
+}
+button:hover, .btn:hover, button:focus, .btn:focus {
+	background: linear-gradient(90deg, #00509e 0%, #3af2ff 100%);
+	color: #fff;
+}
+
+/* Group buttons in a flex row for better spacing */
+
+
+.button-group, .btn-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+	justify-content: flex-start;
+	align-items: stretch;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
 }
 
 button, .btn {
-	background: #3a86ff;
-	color: #fff;
-	border: none;
-	border-radius: 4px;
-	padding: 0.5rem 1rem;
-	cursor: pointer;
-	font-size: 1rem;
-	transition: background 0.2s;
+	margin: 0.5rem 0.5rem 0.5rem 0;
+	min-width: 180px;
+	max-width: 100%;
+	text-align: center;
+	white-space: normal;
+	word-break: break-word;
+	box-sizing: border-box;
 }
-button:hover, .btn:hover {
-	background: #00509e;
+
+@media (max-width: 900px) {
+	.button-group, .btn-group {
+		flex-direction: column;
+		gap: 0.7rem;
+		align-items: stretch;
+	}
+	button, .btn {
+		min-width: 120px;
+		font-size: 1rem;
+		margin-right: 0;
+	}
+}
+
+button, .btn {
+	margin: 0.5rem 0.5rem 0.5rem 0;
+	min-width: 180px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+	.button-group, .btn-group {
+		flex-direction: column;
+		gap: 0.7rem;
+		align-items: stretch;
+	}
+	button, .btn {
+		min-width: 120px;
+		font-size: 1rem;
+	}
+}
+
+/* Improve readability for all text */
+body, main, nav, header, footer, .card, table, ul, li, p {
+	font-size: 1.18rem;
+	line-height: 1.8;
+	word-spacing: 0.08em;
 }
 
 footer {
 	text-align: center;
-	font-size: 0.9rem;
+	font-size: 1rem;
 	margin-top: 2rem;
+	border-top: 2px solid #3af2ff;
+	background: #181c2b;
 }
+
+/* Accessibility: High contrast focus ring */
+:focus {
+	outline: 3px solid #fffa3a;
+	outline-offset: 2px;
+}
+
+/* Large clickable areas for navigation */
+nav a, nav form {
+	font-size: 1.15rem;
+	margin-right: 1.2rem;
+	padding: 0.3rem 0.6rem;
+	border-radius: 4px;
+	background: none;
+	color: #3af2ff;
+}
+nav a:focus, nav a:hover {
+	background: #23243a;
+	color: #fff;
+}
+
+/* Sci-fi accent borders for cards and tables */
+
+.card {
+	border: 2px solid #3af2ff;
+	border-radius: 12px;
+	background: #23243a;
+	color: #e0e6f7;
+	box-shadow: 0 4px 18px #0ff2fa33;
+	padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+	margin: 1.2rem 0.8rem;
+	font-size: 1.18rem;
+	line-height: 1.8;
+	word-spacing: 0.08em;
+	letter-spacing: 0.03em;
+	max-width: 320px;
+	min-width: 220px;
+	transition: box-shadow 0.2s, border-color 0.2s;
+}
+.card:hover, .card:focus {
+	box-shadow: 0 6px 24px #3af2ff66;
+	border-color: #fff;
+}
+
+.card img {
+	border-radius: 8px;
+	margin-bottom: 1rem;
+	max-width: 100%;
+	height: auto;
+	box-shadow: 0 2px 8px #0ff2fa22;
+}
+
+.card p, .card .card-text {
+	color: #e0e6f7;
+	font-size: 1.12rem;
+	margin: 0.5rem 0 0 0;
+	text-shadow: 0 1px 2px #181c2b;
+}
+
+/* Card grid layout for gallery */
+.card-grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1.2rem;
+}
+
+table th, table td {
+	padding: 0.7rem 1.2rem;
+	border-bottom: 1px solid #23243a;
+}
+table th {
+	background: #23243a;
+	color: #3af2ff;
+	text-shadow: 0 0 6px #0ff2fa88;
+}
+table tr:hover {
+	background: #23243a;
+}
+
+/* Responsive and readable text */
+body, main, nav, header, footer {
+	font-size: 1.15rem;
+	line-height: 1.7;
+}
+
+/* Orbitron font for sci-fi look (Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');

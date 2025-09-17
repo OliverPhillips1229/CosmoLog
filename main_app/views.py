@@ -30,8 +30,15 @@ def mars_manifest(request, rover):
 
 def mars_gallery(request):
     from main_app.services.nasa_images import get_mars_images
-    photos = get_mars_images(count=24)
-    meta = {"count": 24, "interval": 4}
+    from django.core.cache import cache
+    import time
+    cache_key = "mars_gallery_images"
+    photos = cache.get(cache_key)
+    if not photos:
+        photos = get_mars_images(count=24)
+        # Cache for 12 hours (43200 seconds)
+        cache.set(cache_key, photos, 43200)
+    meta = {"count": 24, "interval": 12}
     return render(request, "mars/gallery.html", {"photos": photos, "meta": meta})
 from django.contrib.auth import logout
 from django.shortcuts import redirect
