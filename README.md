@@ -20,7 +20,7 @@ CosmoLog was built to provide a unified platform for space enthusiasts, students
 5. Start the server: `python manage.py runserver`
 
 ## Attributions
-- NASA Open APIs for Mars rover images and mission data
+- NASA Open APIs for images and mission data
 - [Transparent Textures](https://www.transparenttextures.com/) for background patterns
 - [Google Fonts: Orbitron](https://fonts.google.com/specimen/Orbitron) for sci-fi typography
 
