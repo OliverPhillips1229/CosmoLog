@@ -50,6 +50,7 @@ def logout_view(request):
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -64,7 +65,7 @@ class MissionList(ListView):
 class MissionDetail(DetailView):
     model = Mission
 
-class MissionCreate(CreateView):
+class MissionCreate(LoginRequiredMixin, CreateView):
     model = Mission
     fields = ['name', 'agency', 'launch_date', 'outcome', 'crewed', 'experiments']
 
@@ -72,7 +73,7 @@ class MissionCreate(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class MissionUpdate(UpdateView):
+class MissionUpdate(LoginRequiredMixin, UpdateView):
     model = Mission
     fields = ['name', 'agency', 'launch_date', 'outcome', 'crewed', 'experiments']
 
@@ -82,7 +83,7 @@ class MissionUpdate(UpdateView):
             return redirect('mission-detail', pk=obj.pk)
         return super().dispatch(request, *args, **kwargs)
 
-class MissionDelete(DeleteView):
+class MissionDelete(LoginRequiredMixin, DeleteView):
     model = Mission
     success_url = reverse_lazy('mission-index')
 
@@ -100,7 +101,7 @@ class ExperimentList(ListView):
 class ExperimentDetail(DetailView):
     model = Experiment
 
-class ExperimentCreate(CreateView):
+class ExperimentCreate(LoginRequiredMixin, CreateView):
     model = Experiment
     fields = ['title', 'category', 'result_summary', 'success_status']
 
@@ -111,7 +112,7 @@ class ExperimentCreate(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class ExperimentUpdate(UpdateView):
+class ExperimentUpdate(LoginRequiredMixin, UpdateView):
     model = Experiment
     fields = ['title', 'category', 'result_summary', 'success_status']
 
@@ -122,7 +123,7 @@ class ExperimentUpdate(UpdateView):
             return redirect('experiment-detail', pk=obj.pk)
         return super().dispatch(request, *args, **kwargs)
 
-class ExperimentDelete(DeleteView):
+class ExperimentDelete(LoginRequiredMixin, DeleteView):
     model = Experiment
 
     def dispatch(self, request, *args, **kwargs):
@@ -141,6 +142,9 @@ class AddExperimentForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['experiment'].queryset = Experiment.objects.all()
 
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def add_existing_experiment(request, mission_id):
     mission = Mission.objects.get(pk=mission_id)
     if request.method == 'POST':
