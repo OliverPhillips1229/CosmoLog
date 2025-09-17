@@ -35,5 +35,4 @@ CosmoLog was built to provide a unified platform for space enthusiasts, students
 - Add user profiles and avatars
 - Implement advanced search and filtering for missions/experiments
 - Integrate more space agency APIs
-- Add social features (comments, likes)
 - Improve mobile responsiveness
