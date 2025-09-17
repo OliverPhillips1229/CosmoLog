@@ -1,6 +1,6 @@
 # CosmoLog
 
-![CosmoLog Screenshot](https://via.placeholder.com/800x400?text=CosmoLog+Screenshot)
+![CosmoLog Screenshot](assests/images/screenshots/CosmoLogHome.png)
 
 ## App Description
 CosmoLog is a web application for logging, exploring, and sharing space missions and experiments. Users can create, view, and manage missions and experiments, browse Mars rover images, and learn about the latest in space exploration.
