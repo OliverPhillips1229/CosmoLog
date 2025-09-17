@@ -1,12 +1,13 @@
-
 from django.urls import path
 from . import views
 
 urlpatterns = [
+    # Redirect /accounts/logout/ to /logout/
+    path('accounts/logout/', views.accounts_logout_redirect),
+
     # Home/About
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
-
 
     # User registration & login
     path('signup/', views.signup, name='signup'),

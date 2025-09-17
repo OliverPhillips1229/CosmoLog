@@ -1,3 +1,7 @@
+from django.http import HttpResponseRedirect
+
+def accounts_logout_redirect(request):
+    return HttpResponseRedirect('/logout/')
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
 
