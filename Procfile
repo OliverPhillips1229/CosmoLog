@@ -1,1 +1,1 @@
-web: gunicorn CosmoLog.wsgi
+web: gunicorn space_missions.wsgi
