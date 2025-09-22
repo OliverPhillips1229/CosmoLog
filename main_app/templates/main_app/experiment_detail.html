@@ -23,7 +23,7 @@
     <p>Not used in any missions yet.</p>
   {% endif %}
 
-  {% if experiment.mission and experiment.mission.user == user %}
+  {% if experiment.user == user %}
     <p>
       <a href="{% url 'experiment-update' experiment.id %}">Edit</a> |
       <a href="{% url 'experiment-delete' experiment.id %}">Delete</a>
