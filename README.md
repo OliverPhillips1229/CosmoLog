@@ -9,8 +9,8 @@ CosmoLog is a web application for logging, exploring, and sharing space missions
 CosmoLog was built to provide a unified platform for space enthusiasts, students, and researchers to chronicle the triumphs and trials of space missions. The app celebrates exploration in all its forms and aims to make space data accessible and engaging.
 
 ## Getting Started
-- **Deployed App:** [Deployed CosmoLog](https://deployment-url.com)
-- **Planning Materials:** [Project Planning Document](https://planning-doc-url.com)
+- **Deployed App:** [Deployed CosmoLog](https://cosmolog-af88cb850086.herokuapp.com/)
+- **Planning Materials:** [Project Planning Document](https://trello.com/b/t6CRJb4T/cosmolog)
 
 ### Local Setup
 1. Clone the repository: `git clone https://github.com/OliverPhillips1229/CosmoLog.git`
