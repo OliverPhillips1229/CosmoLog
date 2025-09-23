@@ -5,8 +5,8 @@
   <p><strong>Success:</strong> {{ experiment.success_status|yesno:"Yes,No" }}</p>
   <p><strong>Summary:</strong> {{ experiment.result_summary|default:"—" }}</p>
   <p><strong>Owner:</strong>
-    {% if experiment.mission and experiment.mission.user %}
-      {{ experiment.mission.user.username }}
+    {% if experiment.user %}
+      {{ experiment.user.username }}
     {% else %}
       &mdash;
     {% endif %}
